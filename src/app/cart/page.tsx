@@ -2,8 +2,11 @@
 
 import { useCartStore } from "@/stores/cart.store";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function CartPage() {
+  const router = useRouter();
+
   const {
     items,
     removeFromCart,
@@ -65,6 +68,7 @@ export default function CartPage() {
           onClick={() => {
             clearCart();
             toast.success("Checkout successful");
+            router.push("/success");
           }}
           className="px-4 py-2 border rounded"
         >
