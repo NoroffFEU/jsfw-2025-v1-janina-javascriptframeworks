@@ -2,11 +2,13 @@ import { fetchProductById } from "@/services/onlineShop";
 import AddToCartButton from "@/components/AddToCartButton/AddToCartButton";
 
 type ProductPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const product = await fetchProductById(params.id);
+  const { id } = await params; // ✅ unwrap params promise
+  const product = await fetchProductById(id);
+
   const hasDiscount = product.discountedPrice < product.price;
 
   return (
@@ -74,7 +76,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       ) : null}
 
       <div style={{ marginTop: "1.5rem" }}>
-        <AddToCartButton />
+        <AddToCartButton product={product} />
       </div>
     </main>
   );
