@@ -20,16 +20,19 @@ export default function Header() {
         zIndex: 10,
       }}
     >
-      <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
+      <Link href="/" style={{ textDecoration: "none", color: "#fff" }}>
         <strong style={{ fontSize: "1.1rem" }}>Online Shop</strong>
       </Link>
 
       <nav style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-        <Link href="/contact" style={{ textDecoration: "none" }}>
+        <Link href="/contact" style={{ textDecoration: "none", color: "#fff" }}>
           Contact
         </Link>
 
-        <Link href="/cart" style={{ textDecoration: "none", position: "relative" }}>
+        <Link
+          href="/cart"
+          style={{ textDecoration: "none", position: "relative", color: "#fff" }}
+        >
           Cart
           <span
             style={{
@@ -40,10 +43,11 @@ export default function Header() {
               height: "22px",
               padding: "0 6px",
               borderRadius: "999px",
-              background: "#000",
-              color: "#fff",
+              background: "#fff",
+              color: "#000",
               marginLeft: "8px",
               fontSize: "12px",
+              fontWeight: 700,
             }}
           >
             {itemCount}
@@ -53,3 +57,4 @@ export default function Header() {
     </header>
   );
 }
+
