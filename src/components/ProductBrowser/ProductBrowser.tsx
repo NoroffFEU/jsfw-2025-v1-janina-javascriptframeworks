@@ -232,6 +232,7 @@ export default function ProductBrowser({ products }: Props) {
                   position: "relative",
                   background: "#fff",
                   cursor: "pointer",
+                  color: "#111",
                 }}
               >
                 {hasDiscount && (
@@ -245,6 +246,7 @@ export default function ProductBrowser({ products }: Props) {
                       borderRadius: "999px",
                       border: "1px solid #ddd",
                       background: "#f5f5f5",
+                      color: "#111",
                     }}
                   >
                     -{discountPercentage}%
