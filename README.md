@@ -20,7 +20,7 @@ The application integrates with the Noroff Online Shop REST API and demonstrates
 ## Live Demo
 
 Deployed site:  
-https://nimble-gnome-ae2283.netlify.app
+https://superb-gumdrop-a6ecb5.netlify.app
 
 ---
 
