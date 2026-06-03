@@ -5,8 +5,21 @@ export default async function HomePage() {
   const products = await fetchProducts();
 
   return (
-    <main style={{ padding: "1.5rem" }}>
-      <ProductBrowser products={products} />
+    <main>
+      <section className="hero">
+        <div className="hero-content">
+          <h1>Discover Something New</h1>
+
+          <p>
+            Browse quality products, discover great deals,
+            and enjoy a seamless shopping experience.
+          </p>
+        </div>
+      </section>
+
+      <div className="page-container">
+        <ProductBrowser products={products} />
+      </div>
     </main>
   );
 }

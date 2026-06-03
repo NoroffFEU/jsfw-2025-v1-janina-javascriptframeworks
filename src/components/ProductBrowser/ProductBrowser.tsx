@@ -31,9 +31,12 @@ export default function ProductBrowser({ products }: Props) {
     return products.filter((p) => {
       const haystack = `${p.title} ${p.description} ${(p.tags ?? []).join(
         " "
-      )}`.toLowerCase();
+      )
+        } `.toLowerCase();
+
       return haystack.includes(normalizedQuery);
     });
+
   }, [products, normalizedQuery]);
 
   const sorted = useMemo(() => {
@@ -43,31 +46,45 @@ export default function ProductBrowser({ products }: Props) {
       case "title-asc":
         copy.sort((a, b) => a.title.localeCompare(b.title));
         return copy;
+
       case "price-asc":
         copy.sort((a, b) => getEffectivePrice(a) - getEffectivePrice(b));
         return copy;
+
       case "price-desc":
         copy.sort((a, b) => getEffectivePrice(b) - getEffectivePrice(a));
         return copy;
+
       case "rating-desc":
         copy.sort((a, b) => b.rating - a.rating);
         return copy;
+
       case "relevance":
       default:
         return copy;
     }
+
   }, [filtered, sort]);
 
   const quickResults = useMemo(() => {
     if (!normalizedQuery) return [] as Product[];
+
+
     return sorted.slice(0, 8);
+
   }, [normalizedQuery, sorted]);
 
   return (
     <>
-      <h1 style={{ fontSize: "1.8rem", marginBottom: "0.75rem" }}>
-        Online Shop
-      </h1>
+      <h1
+        style={{
+          fontSize: "2rem",
+          marginBottom: "1rem",
+          fontWeight: 700,
+        }}
+      >
+        Online Shop </h1>
+
 
       <section
         aria-label="Search and sort products"
@@ -75,15 +92,18 @@ export default function ProductBrowser({ products }: Props) {
           display: "grid",
           gap: "0.75rem",
           gridTemplateColumns: "1fr",
-          marginBottom: "1rem",
+          marginBottom: "1.5rem",
           maxWidth: "900px",
         }}
       >
-        {/* Search */}
         <div style={{ position: "relative" }}>
           <label
             htmlFor="search"
-            style={{ display: "block", fontSize: "0.9rem" }}
+            style={{
+              display: "block",
+              fontSize: "0.9rem",
+              fontWeight: 500,
+            }}
           >
             Search
           </label>
@@ -92,18 +112,17 @@ export default function ProductBrowser({ products }: Props) {
             id="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search products…"
+            placeholder="Search products..."
+            autoComplete="off"
             style={{
               width: "100%",
-              padding: "10px 12px",
+              padding: "12px",
               border: "1px solid #ddd",
               borderRadius: "12px",
               marginTop: "6px",
             }}
-            autoComplete="off"
           />
 
-          {/* Clickable results container (required by brief) */}
           {normalizedQuery && (
             <div
               role="listbox"
@@ -145,6 +164,7 @@ export default function ProductBrowser({ products }: Props) {
                         borderRadius: "10px",
                       }}
                     />
+
                     <div style={{ minWidth: 0 }}>
                       <div
                         style={{
@@ -156,14 +176,25 @@ export default function ProductBrowser({ products }: Props) {
                       >
                         {p.title}
                       </div>
-                      <div style={{ fontSize: "0.85rem", color: "#555" }}>
-                        {getEffectivePrice(p)} · Rating {p.rating}
+
+                      <div
+                        style={{
+                          fontSize: "0.85rem",
+                          color: "#555",
+                        }}
+                      >
+                        ${getEffectivePrice(p)} · ⭐ {p.rating}
                       </div>
                     </div>
                   </Link>
                 ))
               ) : (
-                <div style={{ padding: "10px 12px", color: "#555" }}>
+                <div
+                  style={{
+                    padding: "10px 12px",
+                    color: "#555",
+                  }}
+                >
                   No matches found.
                 </div>
               )}
@@ -171,9 +202,14 @@ export default function ProductBrowser({ products }: Props) {
           )}
         </div>
 
-        {/* Sort */}
         <div style={{ display: "grid", gap: "6px" }}>
-          <label htmlFor="sort" style={{ fontSize: "0.9rem" }}>
+          <label
+            htmlFor="sort"
+            style={{
+              fontSize: "0.9rem",
+              fontWeight: 500,
+            }}
+          >
             Sort
           </label>
 
@@ -183,12 +219,11 @@ export default function ProductBrowser({ products }: Props) {
             onChange={(e) => setSort(e.target.value as SortKey)}
             style={{
               width: "100%",
-              padding: "10px 12px",
+              padding: "12px",
               border: "1px solid #ddd",
               borderRadius: "12px",
               background: "#fff",
               color: "#000",
-              fontWeight: 500,
             }}
           >
             <option value="relevance">Relevance</option>
@@ -200,96 +235,148 @@ export default function ProductBrowser({ products }: Props) {
         </div>
       </section>
 
-      <p style={{ marginBottom: "1rem", color: "#555" }}>
+      <p
+        style={{
+          marginBottom: "1.5rem",
+          color: "#6b7280",
+          fontWeight: 500,
+        }}
+      >
         Showing {sorted.length} product{sorted.length === 1 ? "" : "s"}.
       </p>
 
-      {/* Product grid */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "1rem",
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+          gap: "1.5rem",
         }}
       >
         {sorted.map((product) => {
           const hasDiscount = product.discountedPrice < product.price;
+
           const discountPercentage = hasDiscount
-            ? Math.round(((product.price - product.discountedPrice) / product.price) * 100)
+            ? Math.round(
+              ((product.price - product.discountedPrice) /
+                product.price) *
+              100
+            )
             : 0;
 
           return (
             <Link
               href={`/product/${product.id}`}
               key={product.id}
-              style={{ textDecoration: "none", color: "inherit" }}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
             >
               <article
                 style={{
-                  border: "1px solid #ddd",
-                  borderRadius: "12px",
-                  padding: "12px",
-                  position: "relative",
+                  border: "1px solid #e5e7eb",
+                  borderRadius: "16px",
+                  overflow: "hidden",
                   background: "#fff",
-                  cursor: "pointer",
-                  color: "#111",
+                  transition: "all 0.25s ease",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+                  height: "100%",
                 }}
               >
-                {hasDiscount && (
-                  <span
+                <div
+                  style={{
+                    position: "relative",
+                  }}
+                >
+                  {hasDiscount && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        top: "12px",
+                        right: "12px",
+                        zIndex: 2,
+                        background: "#111827",
+                        color: "#fff",
+                        padding: "6px 10px",
+                        borderRadius: "999px",
+                        fontSize: "12px",
+                        fontWeight: 600,
+                      }}
+                    >
+                      🔥 SAVE {discountPercentage}%
+                    </span>
+                  )}
+
+                  <img
+                    src={product.image.url}
+                    alt={product.image.alt || product.title}
                     style={{
-                      position: "absolute",
-                      top: 10,
-                      right: 10,
-                      fontSize: "12px",
-                      padding: "4px 8px",
-                      borderRadius: "999px",
-                      border: "1px solid #ddd",
-                      background: "#f5f5f5",
-                      color: "#111",
+                      width: "100%",
+                      height: "220px",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                </div>
+
+                <div
+                  style={{
+                    padding: "1rem",
+                  }}
+                >
+                  <h2
+                    style={{
+                      fontSize: "1.05rem",
+                      fontWeight: 600,
+                      marginBottom: "0.75rem",
+                      lineHeight: 1.4,
                     }}
                   >
-                    -{discountPercentage}%
-                  </span>
-                )}
+                    {product.title}
+                  </h2>
 
-                <img
-                  src={product.image.url}
-                  alt={product.image.alt || product.title}
-                  style={{
-                    width: "100%",
-                    height: "180px",
-                    objectFit: "cover",
-                    borderRadius: "8px",
-                  }}
-                />
+                  <p
+                    style={{
+                      color: "#f59e0b",
+                      fontWeight: 600,
+                      marginBottom: "0.75rem",
+                    }}
+                  >
+                    ⭐ {product.rating}/5
+                  </p>
 
-                <h2 style={{ fontSize: "1rem", marginTop: "0.75rem" }}>
-                  {product.title}
-                </h2>
+                  <p>
+                    {hasDiscount ? (
+                      <>
+                        <span
+                          style={{
+                            textDecoration: "line-through",
+                            color: "#9ca3af",
+                            marginRight: "8px",
+                          }}
+                        >
+                          ${product.price}
+                        </span>
 
-                <p style={{ margin: "0.5rem 0" }}>
-                  {hasDiscount ? (
-                    <>
-                      <span
+                        <strong
+                          style={{
+                            fontSize: "1.1rem",
+                          }}
+                        >
+                          ${product.discountedPrice}
+                        </strong>
+                      </>
+                    ) : (
+                      <strong
                         style={{
-                          textDecoration: "line-through",
-                          marginRight: "8px",
-                          color: "#777",
+                          fontSize: "1.1rem",
                         }}
                       >
-                        {product.price}
-                      </span>
-                      <strong>{product.discountedPrice}</strong>
-                    </>
-                  ) : (
-                    <strong>{product.price}</strong>
-                  )}
-                </p>
-
-                <p style={{ fontSize: "0.9rem", color: "#555" }}>
-                  Rating: {product.rating}
-                </p>
+                        ${product.price}
+                      </strong>
+                    )}
+                  </p>
+                </div>
               </article>
             </Link>
           );

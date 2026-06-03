@@ -24,3 +24,51 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ========================= HOME PAGE ========================= */
+
+.page-container {
+  max-width: 1400px;
+
+  margin: 0 auto;
+
+  padding: 2rem;
+}
+
+/* ========================= HERO ========================= */
+
+.hero {
+  padding: 4rem 2rem;
+
+  text-align: center;
+
+  background: linear-gradient(
+    135deg,
+    #111827,
+    #1f2937
+  );
+
+  color: white;
+}
+
+.hero-content {
+  max-width: 900px;
+
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+
+  font-weight: 700;
+
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+
+  line-height: 1.6;
+
+  opacity: 0.9;
+}
