@@ -1,3 +1,5 @@
+> **Note:** This project was revisited and improved as part of the Portfolio 2 assessment.
+
 # JavaScript Frameworks Course Assignment  
 Online Shop – Next.js + TypeScript
 
@@ -152,3 +154,16 @@ AI tools (ChatGPT) were used only for allowed purposes:
 All AI usage is documented in **AI_LOG.md**.
 
 All code has been reviewed, integrated, and can be explained line-by-line.
+
+
+## Portfolio 2 Updates
+
+The following improvements were made after the original submission:
+
+- Improved component structure and code organization.
+- Enhanced responsive layouts across different screen sizes.
+- Refined product presentation and navigation.
+- Improved overall user experience and interface consistency.
+- Updated documentation and project presentation.
+
+These updates were completed to demonstrate continued frontend development and improvements made after the original project delivery.
